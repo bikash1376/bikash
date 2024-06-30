@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bikash's Portfolio | Work</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        /* font-family: "Roboto", Arial, sans-serif; */
+        font-family: 'Lato', sans-serif;
+        background: #000;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 3em;
+        text-align: center;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .project-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+      }
+
+      .project-card h2 {
+        font-size: 1.5em;
+        margin-bottom: 1rem;
+        color: #4caf50;
+      }
+
+      .project-card p {
+        font-size: 1em;
+        line-height: 1.6;
+      }
+
+      .project-card .tech-stack {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tech-tag {
+        background: rgba(76, 175, 80, 0.2);
+        color: #4caf50;
+        padding: 0.3rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.8em;
+      }
+
+      .back-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-decoration: none;
+        font-size: 1em;
+        z-index: 1000;
+      }
+
+      .back-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2em;
+        }
+
+        .project-card {
+          padding: 1rem;
+        }
+      }
+
+
+      footer {
+    background: #00040461;
+    color: #fff;
+    text-align: center;
+    padding: 0rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+    padding: 0rem 0;
+}
+
+.footer-content h3 {
+    font-size: 1.8em;
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* Matching font weight */
+}
+
+.footer-content p {
+    font-size: 1em;
+    margin-bottom: 1.5rem;
+    font-weight: 300; /* Matching font weight */
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+.footer-socials p:hover {
+    color: #4caf50;
+    transition: 2s;
+}
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <a href="index.html" class="back-button">← Back</a>
+
+    <div class="content">
+      <h1>Bikash's Projects</h1>
+
+      <div class="project-grid">
+        <div class="project-card" onclick="showProject('Particle Galaxy')">
+          <h2>Particle Galaxy</h2>
+          <p>
+            An interactive 3D visualization of a galaxy made up of thousands of
+            particles. Users can navigate through the galaxy and interact with
+            celestial bodies.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">WebGL</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card" onclick="showProject('Morphing Landscapes')">
+          <h2>Morphing Landscapes</h2>
+          <p>
+            A procedurally generated 3D landscape that morphs and evolves over
+            time. Features dynamic lighting and atmospheric effects.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">GLSL</span>
+            <span class="tech-tag">Perlin Noise</span>
+          </div>
+        </div>
+
+        <div
+          class="project-card"
+          onclick="showProject('Interactive Music Visualizer')"
+        >
+          <h2>Interactive Music Visualizer</h2>
+          <p>
+            A 3D music visualizer that reacts to audio input in real-time. Users
+            can upload their own music or use the microphone for live
+            visualization.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">Web Audio API</span>
+            <span class="tech-tag">React</span>
+          </div>
+        </div>
+
+        <div class="project-card" onclick="showProject('Virtual Art Gallery')">
+          <h2>Virtual Art Gallery</h2>
+          <p>
+            An immersive 3D virtual art gallery where users can explore and
+            interact with digital artworks in a realistic environment.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">React Three Fiber</span>
+            <span class="tech-tag">3D Modeling</span>
+          </div>
+        </div>
+
+        <div
+          class="project-card"
+          onclick="showProject('3D Data Visualization')"
+        >
+          <h2>3D Data Visualization</h2>
+          <p>
+            A tool for visualizing complex datasets in 3D space, allowing for
+            intuitive exploration and analysis of multidimensional data.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">D3.js</span>
+            <span class="tech-tag">Data Processing</span>
+          </div>
+        </div>
+
+        <div class="project-card" onclick="showProject('WebXR Experience')">
+          <h2>WebXR Experience</h2>
+          <p>
+            An experimental WebXR project that combines augmented and virtual
+            reality, allowing users to interact with 3D objects in their
+            physical space.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">WebXR API</span>
+            <span class="tech-tag">AR.js</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+          <div class="footer-socials">
+            <p>&copy; 2024 Bikash. All rights reserved.</p>
+          </div>
+      </div>
+  </footer>
+
+    <script>
+      let scene, camera, renderer, particles;
+
+      function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById("canvas"),
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Create particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        const particleCount = 5000;
+
+        for (let i = 0; i < particleCount; i++) {
+          const x = Math.random() * 2000 - 1000;
+          const y = Math.random() * 2000 - 1000;
+          const z = Math.random() * 2000 - 1000;
+          vertices.push(x, y, z);
+        }
+
+        geometry.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(vertices, 3)
+        );
+
+        const material = new THREE.PointsMaterial({
+          color: 0x4caf50,
+          size: 3,
+          transparent: true,
+          opacity: 0.8,
+        });
+
+        particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        camera.position.z = 1000;
+
+        window.addEventListener("resize", onWindowResize, false);
+
+        animate();
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        particles.rotation.x += 0.0005;
+        particles.rotation.y += 0.0005;
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function showProject(projectName) {
+        alert("Loading project: " + projectName);
+        // Here you would typically navigate to a detailed project page
+      }
+
+      init();
+    </script>
+  </body>
+</html>

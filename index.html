@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bikash's Portfolio | Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        /* font-family: "Roboto", Arial, sans-serif; */
+        font-family: 'Lato', sans-serif;
+        overflow-x: hidden;
+        background: #000;
+        color: #fff;
+      }
+
+      #canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+#about p, h1 {
+  /* font-family: "Poppins", monospace; */
+  /* font-optical-sizing: auto; */
+  font-weight: 600;
+}
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2 {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+        opacity: 0;
+        transition: opacity 1s, transform 1s;
+        transform: translateY(20px);
+      }
+
+      p {
+        max-width: 600px;
+        text-align: center;
+        line-height: 1.6;
+        opacity: 0;
+        transition: opacity 1s, transform 1s;
+        transform: translateY(20px);
+      }
+
+      #socials {
+        display: flex;
+        gap: 40px;
+        margin-top: 80px;
+      }
+
+      #socials a:active {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.9);
+        transition: 1s;
+      }
+      #socials a {
+        font-size: 25px;
+        color: #fff;
+        text-decoration: none;
+      }
+a {
+    text-decoration: none;
+    color: inherit;
+}
+      .profile-pic {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transition: opacity 1s, transform 1s;
+        transform: scale(0.8);
+      }
+
+      .project {
+        cursor: pointer;
+        padding: 15px;
+        margin: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+        max-width: 300px;
+        width: 100%;
+      }
+
+      .project:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05) translateY(0);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .contact-form input,
+      .contact-form textarea,
+      .contact-form button,
+      #work button {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transition: background 0.3s;
+      }
+
+      #work button {
+        background-color: #4caf50;
+        padding: 14px 30px;
+      }
+
+      #work button:active {
+        transform: scale(0.9);
+        transition: 1s;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        background: rgba(255, 255, 255, 0.2);
+        outline: none;
+      }
+
+      .contact-form button,
+      #work button {
+        cursor: pointer;
+        background: #4caf50;
+      }
+
+      .contact-form button:hover,
+      #work button:hover {
+        background: #45a049;
+      }
+
+      /* Menu Styles */
+      .menu-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .menu-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 2rem;
+        height: 2rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1000;
+      }
+
+      .hamburger div {
+        width: 2rem;
+        height: 0.25rem;
+        background: #fff;
+        border-radius: 10px;
+        transition: all 0.3s linear;
+        position: relative;
+        transform-origin: 1px;
+      }
+
+      .menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 300px;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000; /* Ensure this is higher than other content but not interfering */
+      }
+
+      .menu.open {
+        transform: translateX(0);
+      }
+
+      .menu a {
+        cursor: pointer;
+        font-size: 2rem;
+        text-transform: uppercase;
+        padding: 2rem 0;
+        font-weight: bold;
+        letter-spacing: 0.5rem;
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s linear;
+        display: block; /* Ensure the links take up the full width */
+      }
+
+      .menu a:hover {
+        color: #4caf50;
+      }
+
+      @media (max-width: 768px) {
+        .menu-button {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+          position: fixed;
+          top: 20px;
+          right: 20px;
+        }
+
+        h1,
+        h2 {
+          font-size: 2em;
+        }
+
+        .project {
+          font-size: 0.9em;
+        }
+      }
+
+
+      footer {
+    background: #00040497;
+    color: #fff;
+    text-align: center;
+    padding: 0rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: auto;
+    padding: 0rem 0;
+}
+
+.footer-content h3 {
+    font-size: 1.8em;
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* Matching font weight */
+}
+
+.footer-content p {
+    font-size: 1em;
+    margin-bottom: 1.5rem;
+    font-weight: 300; /* Matching font weight */
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+.footer-socials p:hover {
+    color: #4caf50;
+    transition: 2s;
+}
+
+
+
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+
+    <button class="menu-button">MENU</button>
+    <button class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </button>
+
+    <nav class="menu">
+      <a href="#work">Work</a>
+      <a href="#subscribe">Subscribe</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="content">
+      <section id="about">
+        <img
+          src="https://img.freepik.com/premium-photo/biologist-digital-avatar-generative-ai_934475-9169.jpg"
+          alt="Profile Picture"
+          class="profile-pic"
+        />
+        <h1>Bikash</h1>
+        <p>
+          Hi, I'm Bikash, a passionate web developer and AI enthusiast. I'm a freelancer who loves creating immersive and interactive websites, pushing the boundaries of what's possible on the web.
+        </p>
+        </p>
+        <div id="socials">
+          <a href="https://www.linkedin.com/in/bikash-sahu-2a3371245/" target="_blank"
+            ><i class="ri-linkedin-fill"></i
+          ></a>
+          <a href="https://github.com/bikash1376" target="_blank"
+            ><i class="ri-github-fill"></i
+          ></a>
+          <a href="https://twitter.com/bikash1376" target="_blank"
+            ><i class="ri-twitter-x-line"></i
+          ></a>
+        </div>
+      </section>
+
+      <section id="work">
+        <h2>My Projects</h2>
+        <div class="project" onclick="showProject('Project 1')">
+          <h3>Project 1: Particle System</h3>
+          <p>An interactive particle system created with Three.js</p>
+        </div>
+        <div class="project" onclick="showProject('Project 2')">
+          <h3>Project 2: Interactive 3D Web</h3>
+          <p>A fully immersive 3D web experience</p>
+        </div>
+        <div class="project" onclick="showProject('Project 3')">
+          <h3>Project 3: WebGL Experiments</h3>
+          <p>
+            Various WebGL experiments pushing the limits of browser capabilities
+          </p>
+        </div>
+        <button type="submit" class="see-more"><a href="work.html">See More</a></button>
+      </section>
+
+      <section id="subscribe">
+        <h2>Subscribe to My Newsletter</h2>
+        <form class="contact-form">
+          <input type="email" placeholder="Your Email" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+
+      <section id="contact">
+        <h2>Contact Me</h2>
+        <form class="contact-form">
+          <input type="text" placeholder="Your Name" required />
+          <input type="email" placeholder="Your Email" required />
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+
+      
+
+
+      <footer>
+        <div class="footer-content">
+            <div class="footer-socials">
+              <p>&copy; 2024 Bikash. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+
+    </div>
+
+
+    <script>
+      let scene, camera, renderer, particles;
+      let mouseX = 0,
+        mouseY = 0;
+      let targetX = 0,
+        targetY = 0;
+      let windowHalfX = window.innerWidth / 2;
+      let windowHalfY = window.innerHeight / 2;
+      let clock = new THREE.Clock();
+
+      function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+
+        renderer = new THREE.WebGLRenderer({
+          canvas: document.getElementById("canvas"),
+          antialias: true,
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Create particles
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        const particleCount = 5000;
+
+        for (let i = 0; i < particleCount; i++) {
+          const x = Math.random() * 2000 - 1000;
+          const y = Math.random() * 2000 - 1000;
+          const z = Math.random() * 2000 - 1000;
+          vertices.push(x, y, z);
+        }
+
+        geometry.setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(vertices, 3)
+        );
+
+        const material = new THREE.PointsMaterial({
+          color: 0xffffff,
+          size: 3,
+          transparent: true,
+          opacity: 0.8,
+        });
+
+        particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        camera.position.z = 1000;
+
+        document.addEventListener("mousemove", onDocumentMouseMove, false);
+        window.addEventListener("resize", onWindowResize, false);
+        window.addEventListener("scroll", onScroll, false);
+
+        animate();
+        fadeInContent();
+        setupMenu();
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        const delta = clock.getDelta();
+
+        camera.position.x += (mouseX - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        // Update particle positions
+        const positions = particles.geometry.attributes.position.array;
+        for (let i = 0; i < positions.length; i += 3) {
+          // Constant gentle movement
+          positions[i] += Math.sin(Date.now() * 0.001 + i) * 0.1;
+          positions[i + 1] += Math.cos(Date.now() * 0.002 + i) * 0.1;
+          positions[i + 2] += Math.sin(Date.now() * 0.003 + i) * 0.1;
+
+          // Mouse interaction
+          const dx = positions[i] - targetX;
+          const dy = positions[i + 1] - targetY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 100) {
+            positions[i] += dx * 0.02;
+            positions[i + 1] += dy * 0.02;
+          }
+
+          // Boundary check
+          if (Math.abs(positions[i]) > 1000) positions[i] *= -1;
+          if (Math.abs(positions[i + 1]) > 1000) positions[i + 1] *= -1;
+          if (Math.abs(positions[i + 2]) > 1000) positions[i + 2] *= -1;
+        }
+        particles.geometry.attributes.position.needsUpdate = true;
+
+        renderer.render(scene, camera);
+      }
+
+      function onDocumentMouseMove(event) {
+        mouseX = (event.clientX - windowHalfX) / 100;
+        mouseY = (event.clientY - windowHalfY) / 100;
+
+        targetX = (event.clientX - windowHalfX) * 2;
+        targetY = -(event.clientY - windowHalfY) * 2;
+      }
+
+      function onWindowResize() {
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function showProject(project) {
+        alert("Loading " + project + "...");
+        // Here you would typically load project details or navigate to a project page
+      }
+
+      function fadeInContent() {
+        const elements = document.querySelectorAll(
+          "h1, h2, p, .profile-pic, .project, .contact-form"
+        );
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0) scale(1)";
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        elements.forEach((el) => observer.observe(el));
+      }
+
+      function onScroll() {
+        const scrollPosition = window.scrollY;
+        particles.rotation.x = scrollPosition * 0.0001;
+        particles.rotation.y = scrollPosition * 0.0001;
+      }
+
+      function setupMenu() {
+        const menuButton = document.querySelector(".menu-button");
+        const hamburger = document.querySelector(".hamburger");
+        const menu = document.querySelector(".menu");
+        const menuItems = document.querySelectorAll(".menu a");
+
+        function toggleMenu() {
+          menu.classList.toggle("open");
+        }
+
+        menuButton.addEventListener("click", toggleMenu);
+        hamburger.addEventListener("click", toggleMenu);
+
+        menuItems.forEach((item) => {
+          item.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            console.log(`Menu item clicked: ${item.getAttribute("href")}`);
+            menu.classList.remove("open");
+            const targetId = item.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              console.log(`Scrolling to: ${targetId}`);
+              targetElement.scrollIntoView({ behavior: "smooth" });
+            } else {
+              console.log(`Element not found: ${targetId}`);
+            }
+          });
+        });
+      }
+
+      init();
+    </script>
+  </body>
+</html>
